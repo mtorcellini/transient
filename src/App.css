@@ -1,0 +1,84 @@
+  body {
+          background: #000;
+      }
+      .App {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #play {
+        position: absolute;
+    text-align: center;
+    top: 2em;
+    background-color: transparent;
+    border: none;
+    font-size: 7em;
+    width: 3em;
+    font-family: 'Megrim', cursive;
+    font-weight: 100;
+    outline: none;
+    color: #fff;
+    border: 3px solid #FFF;
+    border-radius: 0;
+    cursor: pointer;
+    }
+    #credit {
+        color: white;
+        font-family: Megrim;
+        font-weight: 100;
+        position: absolute;
+        bottom: 2em;
+        width: 100%;
+        text-align: center;
+    }
+    #score div{
+        border-bottom: 1px solid #616161;
+        margin: 1em
+    }
+    #score {
+        width: 100%;
+        display: none;
+    }
+    #header {
+      text-align: center;
+    margin: auto;
+    position: relative;
+    top: 2em;
+    font-family: 'Megrim', cursive;
+    color: #FFF;
+    font-size: 1.5em;
+    font-weight: 200;
+    padding: 0 10%;
+    }
+    #logo-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      align-items: center;
+      font-family: sans-serif;
+      font-weight: 500;
+      color: #61dafb;
+      margin-top: 1em;
+    }
+    #logo-wrapper a {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      filter: drop-shadow(0 0 1em #000);
+      color: #FFF;
+    }
+    #logo-wrapper a:visited {
+      color: #FFF;
+    }
+#pizzi-logo {
+  margin: 0 1em;
+  height: 3em;
+}
+#react-logo {
+margin: 0 1em;
+height: 3em;
+}
