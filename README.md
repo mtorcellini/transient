@@ -1,4 +1,4 @@
-# [Transient](https://actuallydan.github.io/transient-composer)
+# [Transient](https://actuallydan.github.io/transient/)
 
 ## Procedurally Composed Machine Music
 

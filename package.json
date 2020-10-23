@@ -2,7 +2,7 @@
   "name": "transient",
   "version": "0.1.0",
   "private": true,
-  "main": "https://actuallydan.github.io/transient-composer",
+  "main": "https://actuallydan.github.io/transient/",
   "devDependencies": {
     "gh-pages": "^3.1.0",
     "react-scripts": "1.0.17"
@@ -17,6 +17,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d build"
   }
 }
