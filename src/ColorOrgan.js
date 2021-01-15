@@ -1,51 +1,29 @@
-// noteToFreq(numSteps) {
-//   return +(440 * Math.pow(Math.pow(2, 1 / 12), numSteps)).toFixed(2);
-// }
-
-// getHalfSteps(note) {
-//   // var base = "A",
-//   // baseOct = 4;
-//   let dist = 0;
-//   dist += note.oct * 12 - 48 + (this.tones.indexOf(note.root) - 9);
-//   return dist;
-// }
-
-const colorChart = {};
-const tones = [
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-  "A",
-  "A#",
-  "B",
-];
-
-// for (let i = 0; i < 12; i++) {
-//   colorChart[tones[i]] = 
-// }
-
-console.log(colorChart);
-
-// C being 261.63 Hz
-
-
-// keep multiplying by 2 until a frequency is in the visible light range
-// roughly 400 - 800 THz
-const makeVisible = (freq) => {
-  while (freq < (400*Math.pow(10, 12)) ) {
-    freq *= 2;
-  }
-  thz = parseFloat((freq * Math.pow(10, -12)).toFixed(3));
-  return thz;
+const equalTempered = {
+  "A"   : {pitch : 440.00, rgb : ""},
+  "A#"  : {pitch : 466.16, rgb : ""},
+  "B"   : {pitch : 493.88, rgb : ""},
+  "C"   : {pitch : 523.25, rgb : ""},
+  "C#"  : {pitch : 554.37, rgb : ""},
+  "D"   : {pitch : 587.33, rgb : ""},
+  "D#"  : {pitch : 622.25, rgb : ""},
+  "E"   : {pitch : 659.25, rgb : ""},
+  "F"   : {pitch : 698.46, rgb : ""},
+  "F#"  : {pitch : 739.99, rgb : ""},
+  "G"   : {pitch : 783.99, rgb : ""},
+  "G#"  : {pitch : 830.61, rgb : ""}
 }
 
-console.log(makeVisible(261.63));
+const C = 299792458;
+
+const makeVisible = (f) => {
+  // keep multiplying by 2 until a frequency is in the visible light range
+  // roughly 400 - 800 THz
+  while (f < (400*Math.pow(10, 12)) ) {
+    f *= 2;
+  }
+  // thz = parseFloat((freq * Math.pow(10, -12)).toFixed(3));
+  return f;
+}
 
 const wav2rgb = (l) => {
   // expects nm
@@ -59,8 +37,8 @@ const wav2rgb = (l) => {
   let B;
 
   if (l >= 380 && l <= 440) {
-    attenuation = 0.3 + 0.7 * (l-380)/(440-380)
-    R = Math.pow( ((attenuation * (440-l)/(440-380)) ), gamma);
+    attenuation = 0.3 + 0.7*(l-380)/(440-380);
+    R = Math.pow( ((attenuation*(440-l)/(440-380)) ), gamma);
     G = 0.0;
     B = Math.pow(attenuation, gamma);
   } else if (l > 440 && l <= 490) {
@@ -71,7 +49,7 @@ const wav2rgb = (l) => {
     R = 0.0;
     G = 1.0;
     B = Math.pow( ((510-l)/(510-490)), gamma );
-  } else if (l < 510 && l <= 580) {
+  } else if (l > 510 && l <= 580) {
     R = Math.pow( ((l-510)/(580-510)), gamma );
     G = 1.0;
     B = 0.0;
@@ -90,12 +68,40 @@ const wav2rgb = (l) => {
     B = 0.0;
   }
 
-  R *= 255;
-  G *= 255;
-  B *= 255;
+  R = parseFloat((255*R).toFixed(2));
+  G = parseFloat((255*G).toFixed(2));
+  B = parseFloat((255*B).toFixed(2));
+
+  
 
   let rgb = [R, G, B];
-
   return rgb;
-
 }
+
+const freq2wav = (f) => {
+  // expects Hz
+  let l = C/f;
+  // to nm
+  l *= Math.pow(10, 9);
+  console.log("l: " + l);
+  return l;
+}
+
+Object.keys(equalTempered).forEach(key => {
+  // get pitch
+  let f = equalTempered[key].pitch;
+
+  // up a lot of octaves
+  f = makeVisible(f);
+
+  // convert pitch to wavlength
+  let l = freq2wav(f);
+
+  // convert wavlength to RGB
+  let rgb = wav2rgb(l);
+
+  // update object with RGB data
+  equalTempered[key].rgb = rgb;
+})
+
+console.log(equalTempered);
