@@ -1,3 +1,9 @@
+// change gamma depending on display
+let gamma = 1;
+
+// change C if you have entered a different universe
+const C = 299792458;
+
 const equalTempered = {
   "A"   : {pitch : 440.00, rgb : ""},
   "A#"  : {pitch : 466.16, rgb : ""},
@@ -13,8 +19,6 @@ const equalTempered = {
   "G#"  : {pitch : 830.61, rgb : ""}
 }
 
-const C = 299792458;
-
 const makeVisible = (f) => {
   // keep multiplying by 2 until a frequency is in the visible light range
   // roughly 400 - 800 THz
@@ -27,14 +31,13 @@ const makeVisible = (f) => {
 
 const wav2rgb = (l) => {
   // expects nm
-
-  // change gamma depending on display
-  let gamma = 1;
   let attenuation;
-
   let R;
   let G;
   let B;
+
+  // This function is based on code by Dan Bruton
+  // http://www.physics.sfasu.edu/astro/color/spectra.html
 
   if (l >= 380 && l <= 440) {
     attenuation = 0.3 + 0.7*(l-380)/(440-380);
@@ -71,8 +74,6 @@ const wav2rgb = (l) => {
   R = parseFloat((255*R).toFixed(2));
   G = parseFloat((255*G).toFixed(2));
   B = parseFloat((255*B).toFixed(2));
-
-  
 
   let rgb = [R, G, B];
   return rgb;
